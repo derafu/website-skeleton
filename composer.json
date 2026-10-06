@@ -1,8 +1,8 @@
 {
-    "name": "derafu/website",
-    "description": "Derafu: Website - Base for Derafu's web sites",
+    "name": "derafu/website-skeleton",
+    "description": "Derafu: Website Skeleton - Base for Derafu's web sites",
     "type": "project",
-    "homepage": "https://www.derafu.dev/docs/core/website",
+    "homepage": "https://www.derafu.dev/docs/core/website-skeleton",
     "license": "MIT",
     "authors": [
         {
@@ -11,8 +11,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/derafu/website/issues",
-        "source": "https://github.com/derafu/website"
+        "issues": "https://github.com/derafu/website-skeleton/issues",
+        "source": "https://github.com/derafu/website-skeleton"
     },
     "autoload": {
         "psr-4": {
@@ -26,17 +26,14 @@
     },
     "require": {
         "php": "^8.5",
-        "derafu/foundation": "dev-main",
-        "derafu/content": "dev-main",
-        "derafu/form": "dev-main",
-        "derafu/data-processor": "dev-main",
-        "mpdf/mpdf": "^8.3"
+        "derafu/foundation": "dev-main"
     },
     "require-dev": {
         "ext-xdebug": "*",
-        "friendsofphp/php-cs-fixer": "^3.94",
-        "phpstan/phpstan": "^1.12",
-        "phpunit/phpunit": "^11.5"
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "phpstan/phpstan": "^2.3",
+        "phpunit/phpunit": "^13.4",
+        "nikic/php-parser": "^5.9"
     },
     "scripts": {
         "docs": "php tools/phpdocumentor run --config=phpdoc.xml",

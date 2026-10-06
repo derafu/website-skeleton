@@ -1,7 +1,7 @@
 {
-  "name": "derafu-website",
+  "name": "derafu-website-skeleton",
   "version": "1.0.0",
-  "description": "Derafu: Website - Base for Derafu's web sites",
+  "description": "Derafu: Website Skeleton - Base for Derafu's web sites",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/derafu/website.git"
+    "url": "git+https://github.com/derafu/website-skeleton.git"
   },
   "keywords": [],
   "author": "Esteban De La Fuente Rubio / Derafu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/derafu/website/issues"
+    "url": "https://github.com/derafu/website-skeleton/issues"
   },
-  "homepage": "https://github.com/derafu/website#readme",
+  "homepage": "https://github.com/derafu/website-skeleton#readme",
   "devDependencies": {
     "vite": "^6.1.1",
     "vite-plugin-d2": "^1.0.0",

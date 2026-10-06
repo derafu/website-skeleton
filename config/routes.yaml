@@ -1,24 +1,7 @@
 # Base configuration for routes.yaml
 
+# The routes of derafu/foundation: the ones of the content and contact form
+# packages, the home page (templates/pages/home.html.twig) and the error page
+# (templates/error.html.twig). The routes of the site go below.
 imports:
-  - { resource: '../vendor/derafu/content/resources/config/content-routes.yaml' }
-
-homepage:
-  path: /
-  handler: '%kernel.project_dir%/templates/pages/home.html.twig'
-
-errorpage:
-  path: error
-  handler: '%kernel.project_dir%/templates/error.html.twig'
-
-contact:
-  path: /contact
-  handler: 'App\Controller\ContactController::index'
-
-contact_submit:
-  path: /contact/submit
-  handler: 'App\Controller\ContactController::submit'
-
-contact_success:
-  path: /contact/success
-  handler: 'App\Controller\ContactController::success'
+  - { resource: '../vendor/derafu/foundation/resources/config/foundation-routes.yaml' }

@@ -1,3 +1,4 @@
+{% trans_default_domain 'website+intl-icu' %}
 <twig:block-header
     id="top"
     class="navbar-dark bg-dark"
@@ -5,34 +6,34 @@
     logoText="<span class='fw-bold text-primary'>Derafu</span> <span class='fw-normal text-white'>Website</span>"
     :leftNav="[
         {
-            text: 'Home',
+            text: 'Home'|trans,
             url: '/',
             icon: 'fa-solid fa-house'
         }
     ]"
     :rightNav="[
         {
-            text: 'Blog',
+            text: 'Blog'|trans,
             url: '/blog',
             icon: 'fa-solid fa-blog'
         },
         {
-            text: 'Academy',
+            text: 'Academy'|trans,
             url: '/academy',
             icon: 'fa-solid fa-graduation-cap'
         },
         {
-            text: 'Documentation',
+            text: 'Documentation'|trans,
             url: '/docs',
             icon: 'fa-solid fa-book'
         },
         {
-            text: 'FAQ',
+            text: 'FAQ'|trans,
             url: '/faq',
             icon: 'fa-solid fa-question-circle'
         }
     ]"
     ctaIcon="fa-solid fa-envelope"
-    ctaText="Contact & Collaboration"
+    ctaText="{{ 'Contact & Collaboration'|trans }}"
     ctaUrl="/contact"
 />

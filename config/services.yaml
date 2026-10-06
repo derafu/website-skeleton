@@ -1,7 +1,14 @@
 # Base configuration for services.yaml
 
 imports:
-  - { resource: '../vendor/derafu/content/resources/config/content-services.yaml' }
+  - { resource: '../vendor/derafu/foundation/resources/config/foundation-services.yaml' }
+
+parameters:
+    # The language of the site: the one of the environment variable APP_LOCALE,
+    # or English. The texts of the site are in English, and its translations are
+    # in resources/translations. (This is the default of derafu/foundation, it is
+    # here to show where to change it.)
+    app.locale.default: 'en'
 
 services:
     _defaults:
@@ -13,117 +20,7 @@ services:
         resource: '../src/Controller/'
         public: true
 
-    Psr\Http\Server\RequestHandlerInterface:
-        class: Derafu\Http\Service\RequestHandler
-        public: true
-        arguments:
-            $middlewares:
-                - '@Derafu\Http\Middleware\StaticFilesMiddleware'
-                - '@Derafu\Http\Middleware\RequestFactoryMiddleware'
-                - '@Derafu\Http\Middleware\RouterMiddleware'
-                - '@Derafu\Http\Middleware\DispatcherMiddleware'
-                - '@Derafu\Http\Middleware\ResponseNormalizerMiddleware'
-
-    Derafu\Http\Middleware\StaticFilesMiddleware:
-        arguments:
-            $directory: '%kernel.project_dir%/public/static'
-    Derafu\Http\Middleware\RequestFactoryMiddleware: ~
-    Derafu\Http\Middleware\RouterMiddleware: ~
-    Derafu\Http\Middleware\DispatcherMiddleware: ~
-    Derafu\Http\Middleware\ResponseNormalizerMiddleware: ~
-
-    Derafu\Http\Contract\RequestFactoryInterface:
-        class: Derafu\Http\Factory\RequestFactory
-
-    Derafu\Routing\Contract\RouterInterface:
-        class: Derafu\Routing\Router
-        arguments:
-            $parsers:
-                - '@Derafu\Routing\Parser\StaticParser'
-                - '@Derafu\Routing\Parser\DynamicParser'
-                - '@Derafu\Routing\Parser\FileSystemParser'
-            $routes: '%routes%'
-
-    Derafu\Routing\Parser\StaticParser: ~
-
-    Derafu\Routing\Parser\DynamicParser: ~
-
-    Derafu\Routing\Parser\FileSystemParser:
-        arguments:
-            $directories:
-                - '%kernel.project_dir%/templates/pages'
-            $extensions: ['.html.twig', '.md']
-
-    Derafu\Http\Contract\DispatcherInterface:
-        class: Derafu\Http\Service\Dispatcher
-
-    Derafu\Http\Contract\ProblemHandlerInterface:
-        class: Derafu\Http\Service\ProblemHandler
-        lazy: true
-
-    Derafu\Http\Contract\ProblemFactoryInterface:
-        class: Derafu\Http\Factory\ProblemFactory
-        lazy: true
-
-    Derafu\Http\Contract\SafeThrowableFactoryInterface:
-        class: Derafu\Http\Factory\SafeThrowableFactory
-        lazy: true
-
-    Derafu\Renderer\Contract\RendererInterface:
-        factory: ['Derafu\Renderer\Factory\RendererFactory', 'create']
-        lazy: true
-        arguments:
-            $options:
-                engines: ['twig', 'markdown', 'pdf']
-                extensions:
-                    - '@Derafu\Twig\Extension\RoutingExtension'
-                    - '@Derafu\Twig\Extension\TwigExtension'
-                    - '@Derafu\Form\Renderer\FormTwigExtension'
-                paths:
-                    - '%kernel.project_dir%/templates'
-                    - '%kernel.project_dir%/vendor/derafu/twig/resources/templates'
-                    - '%kernel.project_dir%/vendor/derafu/content/resources/templates'
-
-    Derafu\Twig\Extension\RoutingExtension:
-        arguments:
-            $router: '@Derafu\Routing\Contract\RouterInterface'
-
-    Derafu\Twig\Extension\TwigExtension: ~
-
-    Derafu\Form\Renderer\FormTwigExtension: ~
-
-    Derafu\Form\Contract\Renderer\FormRendererInterface:
-        factory: ['Derafu\Form\Factory\FormRendererFactory', 'create']
-
-    Derafu\Form\Contract\Factory\FormFactoryInterface:
-        class: Derafu\Form\Factory\FormFactory
-
-    Derafu\Form\Contract\Type\TypeResolverInterface:
-        class: Derafu\Form\Type\TypeResolver
-
-    Derafu\Form\Type\TypeResolver: ~
-
-    Derafu\Form\Contract\Type\TypeRegistryInterface:
-        class: Derafu\Form\Type\TypeRegistry
-        arguments:
-            $types: '@Derafu\Form\Type\TypeProvider'
-
-    Derafu\Form\Type\TypeProvider: ~
-
-    Derafu\Form\Contract\Processor\FormDataProcessorInterface:
-        class: Derafu\Form\Processor\FormDataProcessor
-
-    Derafu\Form\Contract\Processor\SchemaToRulesMapperInterface:
-        class: Derafu\Form\Processor\SchemaToRulesMapper
-
-    Derafu\DataProcessor\Contract\ProcessorInterface:
-        factory: ['Derafu\DataProcessor\ProcessorFactory', 'create']
-
-    Derafu\DataProcessor\Contract\RuleResolverInterface:
-        class: Derafu\DataProcessor\RuleResolver
-
-    Derafu\DataProcessor\Contract\RuleRegistryInterface:
-        class: Derafu\DataProcessor\RuleRegistry
-
-    Derafu\DataProcessor\Contract\RuleParserInterface:
-        class: Derafu\DataProcessor\RuleParser
+    # Feeds resources/translations of the site into the Translator, which is
+    # defined in derafu/foundation.
+    App\Translation\WebsiteTranslationResourceProvider:
+        tags: ['derafu_translation.resource_provider']

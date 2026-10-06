@@ -1,31 +1,32 @@
+{% trans_default_domain 'website+intl-icu' %}
 <twig:block-footer
     id="contact"
-    col1Title="Learn more"
+    col1Title="{{ 'Learn more'|trans }}"
     :col1Links="[
         {
-            text: 'Blog',
+            text: 'Blog'|trans,
             url: '/blog',
             icon: 'fa-solid fa-blog fa-fw'
         },
         {
-            text: 'Academy',
+            text: 'Academy'|trans,
             url: '/academy',
             icon: 'fa-solid fa-graduation-cap fa-fw'
         },
         {
-            text: 'Documentation',
+            text: 'Documentation'|trans,
             url: '/docs',
             icon: 'fa-solid fa-book fa-fw'
         },
         {
-            text: 'FAQ',
+            text: 'FAQ'|trans,
             url: '/faq',
             icon: 'fa-solid fa-question-circle fa-fw'
         }
     ]"
 
-    col3Title="Contact & Collaboration"
-    col3Html="If you are interested in contributing, collaborating, services or anything else, contact us."
+    col3Title="{{ 'Contact & Collaboration'|trans }}"
+    col3Html="{{ 'If you are interested in contributing, collaborating, services or anything else, contact us.'|trans }}"
     :col3Links="[
         {
             text: 'contact@example.com',
@@ -44,10 +45,10 @@
     :col4SocialIcons="[
         {
             icon: 'fa-brands fa-github fa-2x fa-fw',
-            url: 'https://github.com/derafu/website'
+            url: 'https://github.com/derafu/website-skeleton'
         }
     ]"
 
-    leftText="Copyright &copy; {{ 'now'|date('Y') }}"
-    rightText="All rights reserved"
+    leftText="{{ 'Copyright © {year}'|trans({year: 'now'|date('Y')}) }}"
+    rightText="{{ 'All rights reserved'|trans }}"
 />
