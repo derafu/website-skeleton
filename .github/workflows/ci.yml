@@ -2,6 +2,11 @@ name: CI
 
 on:
   workflow_dispatch:
+  # Weekly run (Monday, 06:00 UTC) with the latest version of every dependency,
+  # to notice when a change in derafu/foundation or in any of its packages
+  # breaks the site.
+  schedule:
+    - cron: '0 6 * * 1'
   push:
     branches:
       - main
@@ -35,6 +40,10 @@ jobs:
 
       - name: Install Dependencies
         run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: Update Dependencies (weekly run)
+        if: github.event_name == 'schedule'
+        run: composer update --no-progress --no-suggest --prefer-dist
 
       - name: Run PHP Coding Standards Fixer
         run: vendor/bin/php-cs-fixer fix -v --dry-run --diff --config=php-cs-fixer.php
