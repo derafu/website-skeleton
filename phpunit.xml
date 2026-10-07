@@ -23,6 +23,10 @@
     failOnPhpunitDeprecation="true"
     failOnNotice="true"
 >
+    <php>
+        <!-- The sites that have a captcha configure it in their .env; the tests do not need one. -->
+        <env name="CAPTCHA_PROVIDER" value="none"/>
+    </php>
     <source>
         <include>
             <directory suffix=".php">src</directory>

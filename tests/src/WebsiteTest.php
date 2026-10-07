@@ -13,60 +13,21 @@ declare(strict_types=1);
 namespace Tests;
 
 use App\Translation\WebsiteTranslationResourceProvider;
-use Derafu\Http\Kernel;
-use Derafu\Kernel\Environment;
-use Nyholm\Psr7\ServerRequest;
+use Derafu\Foundation\Testing\SiteTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
 
 /**
  * The site as it runs: the kernel with the real configuration of `config/`, a
  * request, and the response with the templates rendered and translated.
+ *
+ * `SiteTestCase` already tests what every site must do (its pages answer, a
+ * page that does not exist is a 404, no route fails in the server); here is
+ * only what is about this site.
  */
 #[CoversClass(WebsiteTranslationResourceProvider::class)]
-final class WebsiteTest extends TestCase
+final class WebsiteTest extends SiteTestCase
 {
-    private string|false $locale;
-
-    protected function setUp(): void
-    {
-        $this->locale = getenv('APP_LOCALE');
-    }
-
-    protected function tearDown(): void
-    {
-        putenv($this->locale === false ? 'APP_LOCALE' : 'APP_LOCALE=' . $this->locale);
-    }
-
-    /**
-     * @return array{int, string} The status and the body of the response.
-     */
-    private function get(string $path, ?string $locale = null): array
-    {
-        putenv($locale === null ? 'APP_LOCALE' : 'APP_LOCALE=' . $locale);
-
-        // Debug mode, so the container is built again with the configuration
-        // of the moment and not taken from a cache that an earlier run left.
-        $kernel = new Kernel(new Environment('test', true, [
-            'APP_ENV' => 'test',
-            'APP_DEBUG' => true,
-            'PROJECT_DIR' => dirname(__DIR__),
-            'URL_HOST' => 'localhost',
-        ]));
-
-        $response = $kernel->handle(new ServerRequest(
-            'GET',
-            'http://localhost' . $path,
-            [],
-            null,
-            '1.1',
-            ['SERVER_PORT' => 80, 'SERVER_NAME' => 'localhost', 'REQUEST_SCHEME' => 'http', 'HTTP_HOST' => 'localhost']
-        ));
-
-        return [$response->getStatusCode(), (string) $response->getBody()];
-    }
-
     #[Test]
     public function theHomePageIsInEnglishByDefault(): void
     {
@@ -104,15 +65,5 @@ final class WebsiteTest extends TestCase
         $this->assertStringContainsString('Todos los derechos reservados', $body);
         $this->assertStringContainsString('Copyright © ' . date('Y'), $body);
         $this->assertStringNotContainsString('All rights reserved', $body);
-    }
-
-    #[Test]
-    public function theContactPageIsTheOneOfTheContactFormPackage(): void
-    {
-        [$status, $body] = $this->get('/contact');
-
-        $this->assertSame(200, $status);
-        $this->assertStringContainsString('<form', $body);
-        $this->assertStringContainsString('Contact Us', $body);
     }
 }
