@@ -24,6 +24,7 @@
     failOnNotice="true"
 >
     <php>
+        <env name="FORM_CONTACT_ENABLED" value="false"/>
         <!-- The sites that have a captcha configure it in their .env; the tests do not need one. -->
         <env name="CAPTCHA_PROVIDER" value="none"/>
     </php>
