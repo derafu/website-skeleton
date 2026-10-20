@@ -14,6 +14,7 @@ namespace Tests\Translation;
 
 use App\Translation\WebsiteTranslationResourceProvider;
 use Derafu\Twig\Lint\TwigTranslationAudit;
+use Derafu\Twig\Provider\DirectoryComponentProvider;
 use Derafu\Twig\Service\TwigService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -65,8 +66,9 @@ final class WebsiteMessagesTest extends TestCase
             new WebsiteTranslationResourceProvider(),
             (new TwigService([
                 'extra' => false,
-                'paths' => [$root . '/templates', $root . '/vendor/derafu/twig/resources/templates'],
+                'paths' => [$root . '/templates', $root . '/vendor/derafu/twig-components/resources/templates'],
                 'extensions' => [$application],
+                'components' => new DirectoryComponentProvider($root . '/vendor/derafu/twig-components/src/Component'),
             ]))->getTwig(),
             allowedTexts: [
                 // The name of the site.

@@ -1,5 +1,5 @@
 /* Base CSS */
 
-@import '../../vendor/derafu/twig/resources/css/components.css';
+@import '../../vendor/derafu/twig-components/resources/css/components.css';
 @import '../../vendor/derafu/markdown/resources/css/code.css';
 @import '../../vendor/derafu/content/resources/css/content.css';
