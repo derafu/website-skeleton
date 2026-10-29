@@ -1,7 +1,8 @@
 # Base configuration for routes.yaml
 
 # The routes of derafu/foundation: the ones of the content and contact form
-# packages, the home page (templates/pages/home.html.twig) and the error page
-# (templates/error.html.twig). The routes of the site go below.
+# packages and the home page (templates/pages/home.html.twig).
+# The error template is configured by derafu.http.error_pages, not as a route.
+# The routes of the site go below.
 imports:
   - { resource: '../vendor/derafu/foundation/resources/config/foundation-routes.yaml' }
